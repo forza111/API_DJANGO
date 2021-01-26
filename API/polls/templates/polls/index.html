@@ -1,0 +1,15 @@
+{% if latest_polls_list  %}
+<ul>
+    <h1>Список актуальных опросов</h1>
+    {% for polls in latest_polls_list %}
+    <li><a href=""> {{ polls.polls_text }}
+    </a></li>
+    {% endfor %}
+</ul>
+
+{% else %}
+<p>No polls are available.</p>
+{% endif %}
+
+
+</html>
