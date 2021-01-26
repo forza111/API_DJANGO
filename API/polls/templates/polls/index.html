@@ -1,8 +1,9 @@
+
 {% if latest_polls_list  %}
 <ul>
     <h1>Список актуальных опросов</h1>
     {% for polls in latest_polls_list %}
-    <li><a href=""> {{ polls.polls_text }}
+    <li><a href="{% url 'polls:detail'  polls.id%}"> {{ polls.polls_text }}
     </a></li>
     {% endfor %}
 </ul>

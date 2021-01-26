@@ -1,0 +1,19 @@
+
+{% if polls  %}
+<ul>
+{{ polls.polls_text }}
+</ul>
+
+{% for question in polls.question_set.all %}
+<li><a href="{% url 'polls:detail_question' polls.id question.id%}">{{ question.question_text }}
+</a></li>
+
+{% endfor %}
+
+
+{% else %}
+<p>No question are available.</p>
+{% endif %}
+
+
+</html>
