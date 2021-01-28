@@ -12,21 +12,16 @@ class IndexView(generic.ListView):
     context_object_name = 'latest_polls_list'
 
     def get_queryset(self):
+        '''Return 20 actual polls, sorted by "start_date" column'''
         return Polls.objects.filter(end_date__gte=timezone.now()).order_by('-start_date')[:20]
-
 
 
 class DetailView(generic.DetailView):
     model = Polls
     template_name = 'polls/detail.html'
     def get_queryset(self):
-        return Polls.objects.get(pk=polls_id)
-
-
-
-'''def detail(request, polls_id):
-    polls = get_object_or_404(Polls, pk=polls_id)
-    return render(request, 'polls/detail.html', {'polls': polls})'''
+        '''Excludes any questions polls that aren't published yet'''
+        return Polls.objects.filter(end_date__gte=timezone.now())
 
 
 def detail_question(request, polls_id, question_id):
