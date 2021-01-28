@@ -7,16 +7,20 @@ from .models import Polls,Question,Choice
 
 
 
-def index(request):
-    latest_polls_list = Polls.objects.filter(end_date__gte=timezone.now()).order_by('-start_date')[:20]
-    context = {'latest_polls_list':latest_polls_list}
-    return render(request, 'polls/index.html', context)
+class IndexView(generic.ListView):
+    template_name = 'polls/index.html'
+    context_object_name = 'latest_polls_list'
+
+    def get_queryset(self):
+        return Polls.objects.filter(end_date__gte=timezone.now()).order_by('-start_date')[:20]
+
+
 
 class DetailView(generic.DetailView):
     model = Polls
     template_name = 'polls/detail.html'
-    def get_queryset(self, polls_id):
-        return Polls.objects.get(pk = polls_id)
+    def get_queryset(self):
+        return Polls.objects.get(pk=polls_id)
 
 
 
